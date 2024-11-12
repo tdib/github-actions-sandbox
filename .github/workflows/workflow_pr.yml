@@ -26,6 +26,7 @@ jobs:
         with:
           pattern: '(([A-Z]+-\d+)|\[CI\]|\[Release\]|\[QA\]|\[Merge\]|\[Automation\]) .+'
           error: 'Commit message must start with Jira ticket or one of the alternative prefixes.'
+        checkAllCommitMessages: 'true'
 
   labeler:
     permissions:
