@@ -7,7 +7,7 @@ on:
 
 jobs:
   android-checks:
-    if: ${{ github.event.label.name == 'Android' }}
+    # if: ${{ github.event.label.name == 'Android' }}
     runs-on: ubuntu-latest
     steps:
       - name: Run Android Checks
