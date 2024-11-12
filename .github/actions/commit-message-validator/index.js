@@ -3,12 +3,10 @@ const github = require("@actions/github")
 
 async function validateCommitMessages() {
   try {
-
     // Inputs
     const rawPattern = core.getInput("pattern")
     const errorMessage = core.getInput("error-message")
     const token = core.getInput("github-token")
-
 
     // Escape backslashes for JavaScript parsing to work correctly
     const pattern = new RegExp(rawPattern.replace(/\\/g, "\\\\"))

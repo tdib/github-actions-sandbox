@@ -30,6 +30,7 @@ jobs:
         with:
           pattern: '^(([A-Z]+-\\d+)|\\[CI\\]|\\[Release\\]|\\[QA\\]|\\[Merge\\]|\\[Automation\\]) .+'
           error-message: "All commit messages must start with a Jira ticket or a valid prefix."
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   labeler:
     permissions:
