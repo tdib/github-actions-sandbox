@@ -11,7 +11,6 @@ jobs:
     uses: ./.github/workflows/job_main.yml
 
   secondary-job:
-    needs: main-job
     uses: ./.github/workflows/job_secondary.yml
 
   dependent-job:
