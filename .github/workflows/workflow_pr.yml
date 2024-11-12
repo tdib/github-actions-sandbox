@@ -8,12 +8,12 @@ on:
 
 jobs:
   main-job:
-    uses: ./.github/workflows/jobs/pr/main-job.yml
+    uses: ./.github/workflows/job_main.yml
 
   secondary-job:
     needs: main-job
-    uses: ./.github/workflows/jobs/pr/secondary-job.yml
+    uses: ./.github/workflows/job_secondary.yml
 
   dependent-job:
     needs: main-job
-    uses: ./.github/workflows/jobs/pr/dependent-job.yml
+    uses: ./.github/workflows/job_dependent.yml

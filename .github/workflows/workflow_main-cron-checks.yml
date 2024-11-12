@@ -7,8 +7,8 @@ on:
 
 jobs:
   check-for-changes:
-    uses: ./.github/workflows/jobs/main/check-for-changes.yml
+    uses: ./.github/workflows/job_check-for-changes.yml
 
   compile-and-test:
     needs: check-for-changes
-    uses: ./.github/workflows/jobs/common/compile-and-test.yml
+    uses: ./.github/workflows/job_compile-and-test.yml
