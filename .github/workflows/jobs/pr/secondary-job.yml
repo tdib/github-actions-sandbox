@@ -1,0 +1,14 @@
+name: Secondary Job
+
+on:
+  workflow_call:
+
+jobs:
+  secondary-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - run: echo "📄 This is the secondary job running on a separate runner."
+      - run: echo "🔁 You can add more steps to perform additional tasks."
+      - run: echo "✅ Secondary job has completed!"

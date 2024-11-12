@@ -1,0 +1,19 @@
+name: PR Checks
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  main-job:
+    uses: ./.github/workflows/jobs/pr/main-job.yml
+
+  secondary-job:
+    needs: main-job
+    uses: ./.github/workflows/jobs/pr/secondary-job.yml
+
+  dependent-job:
+    needs: main-job
+    uses: ./.github/workflows/jobs/pr/dependent-job.yml

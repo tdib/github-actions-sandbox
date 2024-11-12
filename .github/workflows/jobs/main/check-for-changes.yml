@@ -1,0 +1,37 @@
+name: Check for Changes
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: "Branch to check for changes"
+        required: false
+        default: "main"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for changes since the last run
+        id: check_changes
+        run: |
+          git fetch origin ${{ inputs.branch }}
+          LAST_COMMIT=$(git rev-parse HEAD)
+          LATEST_REMOTE_COMMIT=$(git rev-parse origin/${{ inputs.branch }})
+
+          if [ "$LAST_COMMIT" = "$LATEST_REMOTE_COMMIT" ]; then
+            echo "No changes detected since the last run."
+            echo "continue=false" >> $GITHUB_ENV
+          else
+            echo "Changes detected."
+            echo "continue=true" >> $GITHUB_ENV
+          fi
+
+      - name: Stop workflow if no changes
+        if: env.continue == 'false'
+        run: |
+          echo "Stopping workflow because there are no changes."
+          exit 0
