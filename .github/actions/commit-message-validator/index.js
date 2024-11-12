@@ -9,7 +9,8 @@ async function validateCommitMessages() {
     const token = core.getInput("github-token")
 
     // Escape backslashes for JavaScript parsing to work correctly
-    const pattern = new RegExp(rawPattern.replace(/\\/g, "\\\\"))
+    // const pattern = new RegExp(rawPattern.replace("\\", "\\"))
+    const pattern = new RegExp(rawPattern)
 
     console.log("Pattern:", pattern)
     console.log("Error Message:", errorMessage)
@@ -35,7 +36,9 @@ async function validateCommitMessages() {
     const invalidMessages = []
     for (const commit of commits.data) {
       const message = commit.commit.message
+      console.log(`Testing commit '${message}'`)
       if (!pattern.test(message)) {
+        console.log("FAILED!");
         invalidMessages.push(message)
       }
     }
