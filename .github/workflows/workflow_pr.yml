@@ -13,6 +13,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Fetch branches
+        run: git fetch --all
+
       - name: Create Temporary Merge
         run: |
           git checkout main
