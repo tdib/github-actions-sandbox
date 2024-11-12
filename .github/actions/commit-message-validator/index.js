@@ -38,8 +38,13 @@ async function validateCommitMessages() {
 
     // Report results
     if (invalidMessages.length > 0) {
-      const invalidMessagesFormatted = invalidMessages.map((msg) => `"${msg}"`).join("\n")
-      core.setFailed(`${errorMessage}\n\nInvalid commit messages detected:\n${invalidMessagesFormatted}}`)
+      core.setFailed(
+        [
+          errorMessage,
+          "Invalid commit messages detected",
+          invalidMessages.map((msg) => `"${msg}"`).join("\n")
+        ].join("\n")
+      )
     } else {
       console.log("Commit message validation successful!")
     }
