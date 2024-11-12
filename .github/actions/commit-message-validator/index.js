@@ -41,8 +41,8 @@ async function validateCommitMessages() {
       core.setFailed(
         [
           errorMessage,
-          "Invalid commit messages detected",
-          invalidMessages.map((msg) => `"${msg}"`).join("\n")
+          "Invalid commit messages detected:",
+          invalidMessages.map((msg) => `\t"${msg}"`).join("\n")
         ].join("\n")
       )
     } else {
