@@ -1,6 +1,7 @@
 name: Android Checks
 
 on:
+  workflow_call:
   pull_request:
     types: [ labeled ]
 
