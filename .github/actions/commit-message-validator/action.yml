@@ -8,11 +8,9 @@ inputs:
   pattern:
     description: "Regex pattern to validate commit messages"
     required: true
-    default: '^(([A-Z]+-\\d+)|\\[CI\\]|\\[Release\\]|\\[QA\\]|\\[Merge\\]|\\[Automation\\]) .+$'
   error-message:
     description: "Error message to display for invalid commits"
     required: true
-    default: "Invalid commit message format."
   github-token:
     description: "GitHub token for API authentication"
     required: true
