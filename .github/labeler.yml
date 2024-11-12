@@ -1,15 +1,15 @@
-docs:
+Docs:
 - changed-files:
   - any-glob-to-any-file: Docs/**
 
-ios:
+iOS:
 - changed-files:
   - any-glob-to-any-file: "**/iOS/**"
 
-android:
+Android:
 - changed-files:
   - any-glob-to-any-file: "**/Android/**"
 
-mock files:
+Mock files:
 - changed-files:
   - any-glob-to-any-file: Mocks/**

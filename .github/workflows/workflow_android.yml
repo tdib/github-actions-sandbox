@@ -1,0 +1,13 @@
+name: Android Checks
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  android-checks:
+    if: contains(github.event.pull_request.labels.*.name, 'Android') # Runs only if 'Android' label is present
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Android Checks
+        run: echo "Running Android-specific checks..."
