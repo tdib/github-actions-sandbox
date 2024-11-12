@@ -19,11 +19,15 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Fetch branches
-        run: git fetch --all
+        run: |
+          echo "Fetching main branch..."
+          git fetch main
 
       - name: Create Temporary Merge
         run: |
+          echo "Checking out main"
           git checkout main
+          echo "Merging origin/${{github.head_ref}}"
           git merge --no-commit --no-ff origin/${{ github.head_ref }}
       
       - name: Validating Merge
