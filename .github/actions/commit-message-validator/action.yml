@@ -3,7 +3,7 @@ description: Validates that all commit messages adhere to a specific format.
 author: Thomas Dib
 runs:
   using: "node20"
-  main: "index.js"
+  main: "dist/index.js"
 inputs:
   pattern:
     description: "Regex pattern to validate commit messages"

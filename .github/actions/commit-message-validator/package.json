@@ -2,6 +2,11 @@
     "name": "check-commit-messages",
     "version": "1.0.0",
     "description": "A GitHub Action to validate commit messages against a regex.",
-    "main": "index.js",
-    "dependencies": {}
+    "main": "dist/index.js",
+    "dependencies": {
+        "@actions/core": "^1.11.1"
+    },
+    "devDependencies": {
+        "@vercel/ncc": "^0.38.2"
+    }
 }
