@@ -10,13 +10,14 @@ docs:
 - changed-files:
   - any-glob-to-any-file: Docs/**
 
+# TODO: Target iOS/Android subdirectories
 ios:
 - changed-files:
-  - any-glob-to-any-file: **/iOS/**
+  - any-glob-to-any-file: iOS/**
 
 android:
 - changed-files:
-  - any-glob-to-any-file: **/Android/**
+  - any-glob-to-any-file: Android/**
 
 mock:
 - changed-files:
