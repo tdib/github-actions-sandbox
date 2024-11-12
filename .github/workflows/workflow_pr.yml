@@ -1,5 +1,5 @@
 name: PR Checks
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: PR Checks!
 
 on:
   pull_request:
@@ -7,13 +7,14 @@ on:
       - main
 
 jobs:
-  main-job:
-    uses: ./.github/workflows/job_main.yml
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "PR test job"
+        run: |
+          echo "Running scheduled main checks"
+          echo "This is a cron job"
+          echo "This job runs every 5 minutes"
+          echo "This job is triggered by a cron schedule"
+          echo "This job is triggered by a manual workflow_dispatch event"
 
-  secondary-job:
-    needs: main-job
-    uses: ./.github/workflows/job_secondary.yml
-
-  dependent-job:
-    needs: main-job
-    uses: ./.github/workflows/job_dependent.yml

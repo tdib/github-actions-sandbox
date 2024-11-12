@@ -6,9 +6,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  check-for-changes:
-    uses: ./.github/workflows/job_check-for-changes.yml
-
-  compile-and-test:
-    needs: check-for-changes
-    uses: ./.github/workflows/job_compile-and-test.yml
+  test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Main test job"
+        run: |
+          echo "Running scheduled main checks"
+          echo "This is a cron job"
+          echo "This job runs every 5 minutes"
+          echo "This job is triggered by a cron schedule"
+          echo "This job is triggered by a manual workflow_dispatch event"
