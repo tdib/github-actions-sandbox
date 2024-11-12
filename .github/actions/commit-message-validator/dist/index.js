@@ -31816,13 +31816,17 @@ const github = __nccwpck_require__(301)
 
 async function validateCommitMessages() {
   try {
+
     // Inputs
-    const patternInput = core.getInput("pattern")
-    const pattern = new RegExp(patternInput)
+    const rawPattern = core.getInput("pattern")
     const errorMessage = core.getInput("error-message")
+    const token = core.getInput("github-token")
 
     console.log("Pattern:", pattern)
     console.log("Error Message:", errorMessage)
+
+    // Escape backslashes for JavaScript parsing to work correctly
+    const pattern = new RegExp(rawPattern.replace(/\\/g, "\\\\"))
 
     // Get PR context
     const { context } = github
@@ -31833,7 +31837,7 @@ async function validateCommitMessages() {
     }
 
     // Get commits in the PR
-    const octokit = github.getOctokit(core.getInput("github-token"))
+    const octokit = github.getOctokit(token)
     const { owner, repo } = context.repo
     const commits = await octokit.rest.pulls.listCommits({
       owner: owner,

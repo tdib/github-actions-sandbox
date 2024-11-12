@@ -13,3 +13,6 @@ inputs:
     description: "Error message to display for invalid commits"
     required: true
     default: "Invalid commit message format."
+  github-token:
+    description: "GitHub token for API authentication"
+    required: true
