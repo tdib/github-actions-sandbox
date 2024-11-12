@@ -7,14 +7,22 @@ on:
       - main
 
 jobs:
-  test-job:
+  merge-main:
     runs-on: ubuntu-latest
     steps:
-      - name: "PR test job"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Create Temporary Merge
         run: |
-          echo "Running scheduled main checks"
-          echo "This is a cron job"
-          echo "This job runs every 5 minutes"
-          echo "This job is triggered by a cron schedule"
-          echo "This job is triggered by a manual workflow_dispatch event"
+          git checkout main
+          git merge --no-commit --no-ff ${{ github.head_ref }}
+      
+      - name: Validating Merge
+        run: |
+          echo "Validating merge..."
+          echo "--------------"
+          echo ${{ github.head_ref }}
+          echo "--------------"
+          git log
 
