@@ -21,7 +21,7 @@ jobs:
       - name: Fetch branches
         run: |
           echo "Fetching main branch..."
-          git fetch main
+          git fetch origin main
 
       - name: Create Temporary Merge
         run: |
