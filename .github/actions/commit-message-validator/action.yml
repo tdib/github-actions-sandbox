@@ -11,5 +11,5 @@ inputs:
     default: '^(([A-Z]+-\\d+)|\\[CI\\]|\\[Release\\]|\\[QA\\]|\\[Merge\\]|\\[Automation\\]) .+'
   error-message:
     description: "Error message to display for invalid commits"
-    required: false
+    required: true
     default: "Invalid commit message format."
