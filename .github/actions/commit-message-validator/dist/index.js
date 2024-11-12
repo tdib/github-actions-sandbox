@@ -31816,22 +31816,16 @@ const github = __nccwpck_require__(301)
 
 async function validateCommitMessages() {
   try {
-    // Inputs
+    // Get inputs from the action.yml file and workflow configuration
     const rawPattern = core.getInput("pattern")
     const errorMessage = core.getInput("error-message")
     const token = core.getInput("github-token")
 
-    // Escape backslashes for JavaScript parsing to work correctly
-    // const pattern = new RegExp(rawPattern.replace("\\", "\\"))
     const pattern = new RegExp(rawPattern)
-
-    console.log("Pattern:", pattern)
-    console.log("Error Message:", errorMessage)
 
     // Get PR context
     const { context } = github
     const pullNumber = context.payload.pull_request?.number
-
     if (!pullNumber) {
       core.setFailed("This action only runs on pull requests.")
     }
@@ -31846,23 +31840,21 @@ async function validateCommitMessages() {
     })
 
     // Validate each commit message
+    console.log("Matching commits against:", pattern)
     const invalidMessages = []
     for (const commit of commits.data) {
       const message = commit.commit.message
-      console.log(`Testing commit '${message}'`)
       if (!pattern.test(message)) {
-        console.log("FAILED!");
         invalidMessages.push(message)
       }
     }
 
     // Report results
     if (invalidMessages.length > 0) {
-      console.log("Invalid commit messages detected:")
-      invalidMessages.forEach((msg) => console.log(`- ${msg}`))
-      core.setFailed(`${errorMessage}\n\nInvalid commit messages:\n${invalidMessages.join("\n")}`)
+      const invalidMessagesFormatted = invalidMessages.map((msg) => `"${msg}"`).join("\n")
+      core.setFailed(`${errorMessage}\n\nInvalid commit messages detected:\n${invalidMessagesFormatted}}`)
     } else {
-      console.log("All commit messages are valid!")
+      console.log("Commit message validation successful!")
     }
   } catch (error) {
     core.setFailed(error.message)
