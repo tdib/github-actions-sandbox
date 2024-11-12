@@ -9,11 +9,12 @@ async function validateCommitMessages() {
     const errorMessage = core.getInput("error-message")
     const token = core.getInput("github-token")
 
-    console.log("Pattern:", pattern)
-    console.log("Error Message:", errorMessage)
 
     // Escape backslashes for JavaScript parsing to work correctly
     const pattern = new RegExp(rawPattern.replace(/\\/g, "\\\\"))
+
+    console.log("Pattern:", pattern)
+    console.log("Error Message:", errorMessage)
 
     // Get PR context
     const { context } = github
