@@ -22,6 +22,8 @@ jobs:
         run: |
           echo "Fetching main branch..."
           git fetch origin main
+          echo "Fetching PR branch..."
+          git fetch origin ${{ github.head_ref }}
 
       - name: Checkout PR branch
         run: |
