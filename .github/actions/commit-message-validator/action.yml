@@ -1,0 +1,15 @@
+name: Check Commit Messages
+description: Validates that all commit messages adhere to a specific format.
+author: Thomas Dib
+runs:
+  using: "node20"
+  main: "index.js"
+inputs:
+  pattern:
+    description: "Regex pattern to validate commit messages"
+    required: true
+    default: '^(([A-Z]+-\\d+)|\\[CI\\]|\\[Release\\]|\\[QA\\]|\\[Merge\\]|\\[Automation\\]) .+'
+  error-message:
+    description: "Error message to display for invalid commits"
+    required: false
+    default: "Invalid commit message format."
