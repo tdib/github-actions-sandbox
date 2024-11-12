@@ -3,10 +3,29 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
   pull_request:
+    type:
+      - opened
+      - synchronize
     branches:
       - main
 
 jobs:
+  print_title:
+    runs-on: ubuntu-latest
+    steps:
+    - name : Print Title of PR
+      run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+    
+  check-commit-message:
+    name: Check Commit Message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Standard Commit Message
+        uses: gsactions/commit-message-checker@v2
+        with:
+          pattern: '(([A-Z]+-\d+)|\[CI\]|\[Release\]|\[QA\]|\[Merge\]|\[Automation\]) .+'
+          error: 'Commit message must start with Jira ticket or one of the alternative prefixes.'
+
   labeler:
     permissions:
       contents: read
@@ -14,3 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/labeler@v5
+  
+  android-checks:
+    needs: labeler
+    uses: ./.github/workflows/workflow_android.yml

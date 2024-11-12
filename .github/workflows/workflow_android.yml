@@ -2,13 +2,14 @@ name: Android Checks
 
 on:
   pull_request:
-    types:
-      - labeled
+    types: [ labeled ]
 
 jobs:
-  android-checks:
-    # if: ${{ github.event.label.name == 'Android' }}
+  build:
+    if: ${{ github.event.label.name == 'Android' }}
     runs-on: ubuntu-latest
+
     steps:
-      - name: Run Android Checks
-        run: echo "Running Android-specific checks..."
+    - uses: actions/checkout@v2
+    - name: Run a one-line script
+      run: echo Hello, world!
