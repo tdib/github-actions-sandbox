@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Configure Git
+      - name: Configure git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -23,14 +23,16 @@ jobs:
           echo "Fetching main branch..."
           git fetch origin main
 
-      - name: Create Temporary Merge
+      - name: Checkout PR branch
         run: |
-          echo "Checking out main"
-          git checkout main
-          echo "Merging origin/${{github.head_ref}}"
-          git merge --no-commit --no-ff origin/${{ github.head_ref }}
+          git checkout ${{ github.head_ref }}
+
+      - name: Create temporary merge
+        run: |
+          git checkout -b temp-merge
+          git merge --no-commit --no-ff origin/main
       
-      - name: Validating Merge
+      - name: Validating merge
         run: |
           echo "Validating merge..."
           echo "--------------"
