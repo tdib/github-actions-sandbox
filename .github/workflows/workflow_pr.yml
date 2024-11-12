@@ -7,9 +7,6 @@ on:
       - main
 
 jobs:
-  main-job:
-    uses: ./.github/workflows/job_main.yml
-
   labeler:
     permissions:
       contents: read
@@ -17,10 +14,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/labeler@v5
-
-  secondary-job:
-    uses: ./.github/workflows/job_secondary.yml
-
-  dependent-job:
-    needs: main-job
-    uses: ./.github/workflows/job_dependent.yml
