@@ -1,11 +1,3 @@
-root:
-- changed-files:
-  - any-glob-to-any-file: '*'
-
-any:
-- changed-files:
-  - any-glob-to-any-file: '**'
-
 docs:
 - changed-files:
   - any-glob-to-any-file: Docs/**
@@ -22,5 +14,3 @@ android:
 mock:
 - changed-files:
   - any-glob-to-any-file: Mocks/**
-
-
