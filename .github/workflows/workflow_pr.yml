@@ -2,18 +2,44 @@ name: PR Checks
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 
 on:
+  workflow_dispatch:
   pull_request:
+    type:
+      - opened
+      - synchronize
     branches:
       - main
 
 jobs:
-  main-job:
-    uses: ./.github/workflows/job_main.yml
+  print_title:
+    runs-on: ubuntu-latest
+    steps:
+    - name : Print Title of PR
+      run: echo The Title of your PR is ${{ github.event.pull_request.title }}
+  
+  check-commit-messages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensure all commits are fetched
 
-  secondary-job:
-    needs: main-job
-    uses: ./.github/workflows/job_secondary.yml
+      - name: Validate Commit Messages
+        uses: ./.github/actions/commit-message-validator
+        with:
+          pattern: '^(([A-Z]+\-\d+)|\[CI\]|\[Release\]|\[QA\]|\[Merge\]|\[Automation\]) .+$'
+          error-message: "All commit messages must start with a Jira ticket or a valid prefix."
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-  dependent-job:
-    needs: main-job
-    uses: ./.github/workflows/job_dependent.yml
+  labeler:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/labeler@v5
+  
+  android-checks:
+    needs: labeler
+    uses: ./.github/workflows/workflow_android.yml
