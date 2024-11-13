@@ -31,7 +31,6 @@ jobs:
 
       - name: Create temporary merge
         run: |
-          git checkout -b temp-merge
           git merge --no-commit --no-ff origin/main
       
       - name: Validating merge
