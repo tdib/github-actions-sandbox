@@ -12,17 +12,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-      # - name: Configure git
-      #   run: |
-      #     git config user.name "github-actions[bot]"
-      #     git config user.email "github-actions[bot]@users.noreply.github.com"
       
       - name: Validating merge
         run: |
           echo "Validating merge..."
           echo "--------------"
-          echo ${{ github.head_ref }}
+          echo "PR Branch: ${{ github.head_ref }}"
+          echo "PR Branch Commit Hash: $(git rev-parse ${{ github.head_ref }})"
+          echo "Main Branch Commit Hash: $(git rev-parse origin/main)"
           echo "--------------"
           git log
 
