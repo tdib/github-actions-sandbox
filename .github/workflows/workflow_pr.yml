@@ -17,9 +17,5 @@ jobs:
         run: |
           echo "Validating merge..."
           echo "--------------"
-          echo "PR Branch: ${{ github.head_ref }}"
-          echo "PR Branch Commit Hash: $(git rev-parse ${{ github.head_ref }})"
-          echo "Main Branch Commit Hash: $(git rev-parse origin/main)"
-          echo "--------------"
           git log
 
