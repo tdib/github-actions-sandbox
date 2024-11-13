@@ -13,19 +13,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Configure git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Fetch branches
-        run: |
-          echo "Fetching branches..."
-          git fetch --all
-
-      - name: Checkout PR branch
-        run: |
-          git checkout refs/remotes/pull/${{ github.event.pull_request.number }}/merge
+      # - name: Configure git
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions[bot]@users.noreply.github.com"
       
       - name: Validating merge
         run: |
