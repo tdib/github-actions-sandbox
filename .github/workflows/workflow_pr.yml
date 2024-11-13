@@ -20,18 +20,12 @@ jobs:
 
       - name: Fetch branches
         run: |
-          echo "Fetching main branch..."
-          git fetch origin main
-          echo "Fetching PR branch..."
-          git fetch origin ${{ github.head_ref }}
+          echo "Fetching branches..."
+          git fetch --all
 
       - name: Checkout PR branch
         run: |
-          git checkout ${{ github.head_ref }}
-
-      - name: Create temporary merge
-        run: |
-          git merge --no-commit --no-ff origin/main
+          git checkout refs/remotes/pull/${{ github.event.pull_request.number }}/merge
       
       - name: Validating merge
         run: |
