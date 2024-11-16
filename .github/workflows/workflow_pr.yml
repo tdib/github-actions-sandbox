@@ -7,14 +7,15 @@ on:
       - main
 
 jobs:
-  test-job:
+  merge-main:
     runs-on: ubuntu-latest
     steps:
-      - name: "PR test job"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Validating merge
         run: |
-          echo "Running scheduled main checks"
-          echo "This is a cron job"
-          echo "This job runs every 5 minutes"
-          echo "This job is triggered by a cron schedule"
-          echo "This job is triggered by a manual workflow_dispatch event"
+          echo "Validating merge..."
+          echo "--------------"
+          git log
 
