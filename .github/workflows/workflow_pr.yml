@@ -7,14 +7,37 @@ on:
       - main
 
 jobs:
-  test-job:
+  merge-main:
     runs-on: ubuntu-latest
     steps:
-      - name: "PR test job"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure git
         run: |
-          echo "Running scheduled main checks"
-          echo "This is a cron job"
-          echo "This job runs every 5 minutes"
-          echo "This job is triggered by a cron schedule"
-          echo "This job is triggered by a manual workflow_dispatch event"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Fetch branches
+        run: |
+          echo "Fetching main branch..."
+          git fetch origin main
+          echo "Fetching PR branch..."
+          git fetch origin ${{ github.head_ref }}
+
+      - name: Checkout PR branch
+        run: |
+          git checkout ${{ github.head_ref }}
+
+      - name: Create temporary merge
+        run: |
+          git merge --no-commit --no-ff origin/main
+      
+      - name: Validating merge
+        run: |
+          echo "Validating merge..."
+          echo "--------------"
+          echo ${{ github.head_ref }}
+          echo "--------------"
+          git log
 
