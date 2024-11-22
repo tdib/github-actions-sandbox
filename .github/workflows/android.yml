@@ -1,0 +1,13 @@
+name: Android Checks
+
+on:
+  workflow_call:
+
+jobs:
+  android-checks:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print start message
+        run: |
+          echo "Starting Android checks..."

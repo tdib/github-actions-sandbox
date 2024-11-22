@@ -7,14 +7,40 @@ on:
       - main
 
 jobs:
-  test-job:
+  dummy-job:
     runs-on: ubuntu-latest
+    name: Dummy job
     steps:
-      - name: "PR test job"
+      - name: Base job for all PRs
         run: |
-          echo "Running scheduled main checks"
-          echo "This is a cron job"
-          echo "This job runs every 5 minutes"
-          echo "This job is triggered by a cron schedule"
-          echo "This job is triggered by a manual workflow_dispatch event"
+          echo "Running checks for all PRs"
+          echo "Doing things..."
+          echo "Other stuff..."
+          echo "Additional useful events..."
+          echo "${{ toJson(github.event.pull_request.changed_files) }}"
 
+  detect-file-changes:
+    runs-on: ubuntu-latest
+    name: Detect file changes
+    outputs:
+      run_android: ${{ steps.detect.outputs.run_android }}
+      run_ios: ${{ steps.detect.outputs.run_ios }}
+    steps:
+      # This can be a script used to detect changes
+      - name: Detect File Changes
+        id: detect
+        run: |
+          echo "run_android=true" >> $GITHUB_OUTPUT
+          echo "run_ios=false" >> $GITHUB_OUTPUT
+
+  android-checks:
+    name: Android Checks
+    needs: detect-file-changes
+    if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
+    uses: ./.github/workflows/android.yml
+
+  ios-checks:
+    name: iOS Checks
+    needs: detect-file-changes
+    if: ${{ needs.detect-file-changes.outputs.run_ios == 'true' }}
+    uses: ./.github/workflows/ios.yml

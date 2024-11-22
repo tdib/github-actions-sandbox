@@ -15,6 +15,7 @@
 .cxx
 local.properties
 node_modules/
+event.json
 
 # Xcode
 #
