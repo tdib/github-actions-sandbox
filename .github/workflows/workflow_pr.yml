@@ -17,6 +17,7 @@ jobs:
           echo "Doing things..."
           echo "Other stuff..."
           echo "Additional useful events..."
+          echo "${{ toJson(github.event.pull_request.changed_files) }}"
 
   detect-file-changes:
     runs-on: ubuntu-latest
