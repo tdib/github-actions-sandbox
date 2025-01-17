@@ -4,7 +4,7 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
   workflow_dispatch:
   pull_request:
-    type:
+    types:
       - opened
       - synchronize
     branches:
@@ -42,4 +42,4 @@ jobs:
   
   android-checks:
     needs: labeler
-    uses: ./.github/workflows/workflow_android.yml
+    uses: ./.github/actions/workflow_android.yml@main
