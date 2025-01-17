@@ -1,1 +1,7 @@
 node_modules/
+.DS_Store
+Android/.gradle/
+Android/.idea/
+Android/app/build/
+Android/local.properties
+iOS/
