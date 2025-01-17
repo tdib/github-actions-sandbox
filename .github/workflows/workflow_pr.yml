@@ -18,6 +18,8 @@ jobs:
   check-commit-messages:
     name: Check Commit Messages
     runs-on: ubuntu-latest
+    env:
+      MY_VAR_1: "hardcoded1"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
