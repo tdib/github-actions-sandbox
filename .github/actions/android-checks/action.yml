@@ -13,15 +13,10 @@ runs:
     # - name: Setup Gradle
     #   uses: gradle/actions/setup-gradle@v4
 
-    - name: Get secrets
-      shell: bash
-      run: |
-        echo 'MY_REQUIRED_VALUE="my_required_value"' >> $GITHUB_ENV
-
     - name: Print environment required value
       shell: bash
       run: |
-        echo "My secret is $MY_REQUIRED_VALUE"
+        echo "My secret is $SOMETHING"
 
     # - name: Run unit tests
     #   shell: bash

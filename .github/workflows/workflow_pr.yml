@@ -65,6 +65,16 @@ jobs:
             echo "run_ios=true" >> $GITHUB_OUTPUT
           fi
 
+  fetch-secrets:
+    name: Fetch Secrets
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo 'SOMETHING="required_value"' >> $GITHUB_ENV
+
+      - run: |
+          echo "$SOMETHING"
+
   android-checks:
     name: Android Checks
     needs: detect-file-changes
@@ -76,8 +86,6 @@ jobs:
 
       - name: Run Android Checks
         uses: ./.github/actions/android-checks
-        env:
-          MY_REQUIRED_VALUE: ${{ env.MY_REQUIRED_VALUE }}
 
   ios-checks:
     name: iOS Checks
