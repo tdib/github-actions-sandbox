@@ -50,7 +50,7 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Detect File Changes
+      - name: Set change flags
         id: detect
         # Check changed files for "Android/" or "iOS/" in the path and set the respective flags to indicate changes
         run: |
