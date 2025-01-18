@@ -65,23 +65,9 @@ jobs:
             echo "run_ios=true" >> $GITHUB_OUTPUT
           fi
 
-  fetch-secrets:
-    name: Fetch Secrets
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get secrets
-        run: |
-          echo "MY_REQUIRED_VALUE='my_required_value'" >> $GITHUB_ENV
-
-      - name: Check secrets
-        run: |
-          echo "value from PR workflow: $MY_REQUIRED_VALUE"
-
   android-checks:
     name: Android Checks
-    needs:
-      - detect-file-changes
-      - fetch-secrets
+    needs: detect-file-changes
     if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
     runs-on: ubuntu-latest
     steps:
