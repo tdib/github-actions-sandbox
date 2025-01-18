@@ -8,6 +8,7 @@ on:
         description: Some required value for the Gradle project
         required: true
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   android-checks:
