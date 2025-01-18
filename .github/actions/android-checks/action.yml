@@ -17,6 +17,7 @@ runs:
       shell: bash
       run: |
         echo "My secret is $SOMETHING"
+        echo "My env secret is $SOME_VALUE"
 
     # - name: Run unit tests
     #   shell: bash

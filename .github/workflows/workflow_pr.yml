@@ -86,6 +86,8 @@ jobs:
 
       - name: Run Android Checks
         uses: ./.github/actions/android-checks
+        env:
+          SOME_VALUE: "test"
 
   ios-checks:
     name: iOS Checks
