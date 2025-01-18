@@ -90,7 +90,7 @@ jobs:
       - name: Run Android Checks
         uses: ./.github/actions/android-checks
         env:
-          SOMETHING: "something"
+          required_value: "something"
 
   ios-checks:
     name: iOS Checks
