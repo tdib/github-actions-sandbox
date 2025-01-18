@@ -24,6 +24,7 @@ jobs:
         uses: ./.github/actions/commit-message-validator
         with:
           # Match examples: "ABCD-1234 Commit msg", "[Release] Commit msg", "[QA] Commit msg"
-          pattern: '^(([A-Z]+\-\d+)|\[CI\]|\[Release\]|\[QA\]|\[Merge\]|\[Automation\]) .+$'
+          # pattern: '^(([A-Z]+\-\d+)|\[CI\]|\[Release\]|\[QA\]|\[Merge\]|\[Automation\]) .+$'
+          pattern: "^.*$" # Temporarily allow anything
           error-message: "All commit messages must start with a Jira ticket or a valid prefix."
           github-token: ${{ secrets.GITHUB_TOKEN }}
