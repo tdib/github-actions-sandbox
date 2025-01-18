@@ -7,6 +7,7 @@ on:
     types:
       - opened
       - synchronize
+      - ready_for_review
     branches:
       - main
 
@@ -41,6 +42,7 @@ jobs:
   detect-file-changes:
     runs-on: ubuntu-latest
     name: Detect file changes
+    if: ${{ !github.event.pull_request.draft }}
     outputs:
       run_android: ${{ steps.detect.outputs.run_android }}
       run_ios: ${{ steps.detect.outputs.run_ios }}
