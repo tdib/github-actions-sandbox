@@ -17,7 +17,9 @@ runs:
       uses: gradle/actions/setup-gradle@v4
 
     - name: Run unit tests
+      shell: bash
       run: ./gradlew assembleUnitTest
 
     - name: Build debug variant
+      shell: bash
       run: ./gradlew assembleDebug
