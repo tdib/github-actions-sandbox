@@ -1,0 +1,10 @@
+name: Android Checks
+description: Run any Android specific checks for linting, testing, etc.
+
+runs:
+  using: composite
+  steps:
+    - name: Build and test
+      shell: bash
+      run: |
+        echo "Starting Android checks..."
