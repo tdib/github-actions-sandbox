@@ -86,17 +86,11 @@ jobs:
     name: Android Checks
     needs: detect-file-changes
     if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Android Checks
-        uses: ./.github/actions/android-checks
-        # Set the required gradle.properties via environment variables
-        # https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties
-        env:
-          ORG_GRADLE_PROJECT_required_value: "something"
+    uses: ./.github/workflows/android-checks.yml
+    # Set the required gradle.properties via environment variables
+    # https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties
+    with:
+      required_value: "something"
 
   ios-checks:
     name: iOS Checks
