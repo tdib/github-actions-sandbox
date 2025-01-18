@@ -37,7 +37,33 @@ jobs:
         uses: actions/labeler@v5
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+  
+  detect-file-changes:
+    runs-on: ubuntu-latest
+    name: Detect file changes
+    outputs:
+      run_android: ${{ steps.detect.outputs.run_android }}
+      run_ios: ${{ steps.detect.outputs.run_ios }}
+    steps:
+      - name: Detect File Changes
+        id: detect
+        # Check changed files for "Android/" or "iOS/" in the path and set the respective flags to indicate changes
+        run: |
+          if git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} | grep -q 'Android/'; then
+            echo "run_android=true" >> $GITHUB_OUTPUT
+          fi
+          if git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} | grep -q 'iOS/'; then
+            echo "run_ios=true" >> $GITHUB_OUTPUT
+          fi
 
   android-checks:
     name: Android Checks
+    needs: detect-file-changes
+    if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
     uses: ./.github/actions/android-checks
+
+  ios-checks:
+    name: iOS Checks
+    needs: detect-file-changes
+    if: ${{ needs.detect-file-changes.outputs.run_ios == 'true' }}
+    uses: ./.github/actions/ios-checks
