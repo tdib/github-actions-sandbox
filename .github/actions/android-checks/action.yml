@@ -14,19 +14,12 @@ runs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    - name: Inject Gradle Properties
-      working-directory: Android/
-      shell: bash
-      run: |
-        echo "" >> ~/.gradle/gradle.properties
-        echo "required_value=$SOMETHING" >> ~/.gradle/gradle.properties
-
     - name: Run unit tests
       shell: bash
       working-directory: ./Android
-      run: ./gradlew assembleUnitTest
+      run: ./gradlew assembleUnitTest -Prequired_value=$SOMETHING
 
     - name: Build debug variant
       shell: bash
       working-directory: ./Android
-      run: ./gradlew assembleDebug
+      run: ./gradlew assembleDebug -Prequired_value=$SOMETHING
