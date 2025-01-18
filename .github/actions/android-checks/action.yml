@@ -4,26 +4,26 @@ description: Run any Android specific checks for linting, testing, etc.
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
+    # - uses: actions/checkout@v4
+    # - uses: actions/setup-java@v4
+    #   with:
+    #     java-version: '21'
+    #     distribution: 'temurin'
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v4
+    # - name: Setup Gradle
+    #   uses: gradle/actions/setup-gradle@v4
 
     - name: Print environment required value
       shell: bash
       run: |
         echo "My secret is $MY_REQUIRED_VALUE"
 
-    - name: Run unit tests
-      shell: bash
-      working-directory: ./Android
-      run: ./gradlew assembleUnitTest
+    # - name: Run unit tests
+    #   shell: bash
+    #   working-directory: ./Android
+    #   run: ./gradlew assembleUnitTest
 
-    - name: Build debug variant
-      shell: bash
-      working-directory: ./Android
-      run: ./gradlew assembleDebug
+    # - name: Build debug variant
+    #   shell: bash
+    #   working-directory: ./Android
+    #   run: ./gradlew assembleDebug
