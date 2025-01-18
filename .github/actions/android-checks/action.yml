@@ -20,11 +20,18 @@ runs:
         echo "My secret is $SOMETHING"
         echo "My other secret is $SOMETHING_ELSE"
 
-    - name: Inject Gradle properties
+    - name: Inject Gradle Properties
+      working-directory: Android/
       shell: bash
       run: |
-        pwd
-        ls
+        echo "required_value=$SOMETHING" >> ./gradle.properties
+        echo "another_value=$SOMETHING_ELSE" >> ./gradle.properties
+
+    - name: Check Gradle Properties
+      working-directory: Android/
+      shell: bash
+      run: |
+        ./gradlew properties
 
     # - name: Run unit tests
     #   shell: bash
