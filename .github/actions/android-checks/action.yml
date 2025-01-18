@@ -21,6 +21,7 @@ runs:
       working-directory: Android/
       shell: bash
       run: |
+        echo "" >> ./gradle.properties
         echo "required_value=$SOMETHING" >> ./gradle.properties
         echo "another_value=$SOMETHING_ELSE" >> ./gradle.properties
 
