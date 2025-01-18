@@ -71,9 +71,11 @@ jobs:
     steps:
       - run: |
           echo 'SOMETHING="required_value"' >> $GITHUB_ENV
+          echo "SOMETHING_ELSE='required_value_2'" >> $GITHUB_ENV
 
       - run: |
           echo "$SOMETHING"
+          echo "$SOMETHING_ELSE"
 
   android-checks:
     name: Android Checks
@@ -87,7 +89,8 @@ jobs:
       - name: Run Android Checks
         uses: ./.github/actions/android-checks
         env:
-          SOME_VALUE: "test"
+          SOMETHING: ${{ env.SOMETHING }}
+          SOMETHING_ELSE: ${{ env.SOMETHING_ELSE }}
 
   ios-checks:
     name: iOS Checks
