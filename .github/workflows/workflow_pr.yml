@@ -28,3 +28,12 @@ jobs:
           pattern: "^.*$" # Temporarily allow anything
           error-message: "All commit messages must start with a Jira ticket or a valid prefix."
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  label-changes:
+    name: Label Changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label Changes
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

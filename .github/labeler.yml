@@ -1,0 +1,19 @@
+Documentation:
+- changed-files:
+  - any-glob-to-any-file: "Docs/**"
+
+iOS:
+- changed-files:
+  - any-glob-to-any-file: "**/iOS/**"
+
+Android:
+- changed-files:
+  - any-glob-to-any-file: "**/Android/**"
+
+Mock response:
+- changed-files:
+  - any-glob-to-any-file: "Mocks/**"
+
+Workflow:
+- changed-files:
+  - any-glob-to-any-file: ".github/**"
