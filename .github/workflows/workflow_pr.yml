@@ -1,5 +1,5 @@
 name: PR Checks
-run-name: PR Checks!
+run-name: "PR #${{ github.event.pull_request.number }} - ${{ github.event.pull_request.title }}"
 
 on:
   pull_request:
@@ -12,9 +12,5 @@ jobs:
     steps:
       - name: "PR test job"
         run: |
-          echo "Running scheduled main checks"
-          echo "This is a cron job"
-          echo "This job runs every 5 minutes"
-          echo "This job is triggered by a cron schedule"
-          echo "This job is triggered by a manual workflow_dispatch event"
+          echo "This is a test job"
 
