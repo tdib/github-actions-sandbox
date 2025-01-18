@@ -1,0 +1,16 @@
+name: Check Commit Messages
+description: Validates that all commit messages adhere to a specific format.
+author: Thomas Dib
+runs:
+  using: "node20"
+  main: "dist/index.js"
+inputs:
+  pattern:
+    description: "Regex pattern to validate commit messages"
+    required: true
+  error-message:
+    description: "Error message to display for invalid commits"
+    required: true
+  github-token:
+    description: "GitHub token for API authentication"
+    required: true

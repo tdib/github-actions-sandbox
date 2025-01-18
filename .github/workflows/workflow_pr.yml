@@ -1,20 +1,30 @@
 name: PR Checks
-run-name: PR Checks!
+run-name: "PR #${{ github.event.pull_request.number }} - ${{ github.event.pull_request.title }}"
 
 on:
+  workflow_dispatch:
   pull_request:
+    types:
+      - opened
+      - synchronize
     branches:
       - main
 
 jobs:
-  test-job:
+  check-commit-messages:
+    name: Check Commit Messages
     runs-on: ubuntu-latest
     steps:
-      - name: "PR test job"
-        run: |
-          echo "Running scheduled main checks"
-          echo "This is a cron job"
-          echo "This job runs every 5 minutes"
-          echo "This job is triggered by a cron schedule"
-          echo "This job is triggered by a manual workflow_dispatch event"
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      - name: Validate Commit Messages
+        uses: ./.github/actions/commit-message-validator
+        with:
+          # Match examples: "ABCD-1234 Commit msg", "[Release] Commit msg", "[QA] Commit msg"
+          # pattern: '^(([A-Z]+\-\d+)|\[CI\]|\[Release\]|\[QA\]|\[Merge\]|\[Automation\]) .+$'
+          pattern: "^.*$" # Temporarily allow anything
+          error-message: "All commit messages must start with a Jira ticket or a valid prefix."
+          github-token: ${{ secrets.GITHUB_TOKEN }}
