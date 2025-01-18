@@ -11,6 +11,25 @@ runs:
         java-version: '21'
         distribution: 'temurin'
 
+    - name: Check gradle.properties (Before)
+      working-directory: Android/
+      shell: bash
+      run: |
+        cat gradle.properties
+
+    - name: Inject Gradle Properties
+      working-directory: Android/
+      shell: bash
+      run: |
+        echo "required_value=$SOMETHING" >> ./gradle.properties
+        echo "another_value=$SOMETHING_ELSE" >> ./gradle.properties
+
+    - name: Check gradle.properties (After)
+      working-directory: Android/
+      shell: bash
+      run: |
+        cat gradle.properties
+
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
@@ -19,13 +38,6 @@ runs:
       run: |
         echo "My secret is $SOMETHING"
         echo "My other secret is $SOMETHING_ELSE"
-
-    - name: Inject Gradle Properties
-      working-directory: Android/
-      shell: bash
-      run: |
-        echo "required_value=$SOMETHING" >> ./gradle.properties
-        echo "another_value=$SOMETHING_ELSE" >> ./gradle.properties
 
     - name: Check Gradle Properties
       working-directory: Android/
