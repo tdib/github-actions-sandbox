@@ -60,10 +60,22 @@ jobs:
     name: Android Checks
     needs: detect-file-changes
     if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
-    uses: ./.github/actions/android-checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Android Checks
+        uses: ./.github/actions/android-checks
 
   ios-checks:
     name: iOS Checks
     needs: detect-file-changes
     if: ${{ needs.detect-file-changes.outputs.run_ios == 'true' }}
-    uses: ./.github/actions/ios-checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run iOS Checks
+        uses: ./.github/actions/ios-checks
