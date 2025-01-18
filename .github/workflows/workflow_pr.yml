@@ -70,13 +70,13 @@ jobs:
     name: Fetch Secrets
     runs-on: ubuntu-latest
     steps:
-      - run: |
+      - name: Set environment secret
+        run: |
           echo 'SOMETHING="required_value"' >> $GITHUB_ENV
-          echo "SOMETHING_ELSE='required_value_2'" >> $GITHUB_ENV
 
-      - run: |
+      - name: Read environment secret
+        run: |
           echo "$SOMETHING"
-          echo "$SOMETHING_ELSE"
 
   android-checks:
     name: Android Checks
@@ -91,7 +91,6 @@ jobs:
         uses: ./.github/actions/android-checks
         env:
           SOMETHING: "something"
-          SOMETHING_ELSE: "something else"
 
   ios-checks:
     name: iOS Checks
