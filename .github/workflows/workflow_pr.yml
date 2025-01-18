@@ -3,6 +3,16 @@ run-name: "PR #${{ github.event.pull_request.number }} - ${{ github.event.pull_r
 
 on:
   workflow_dispatch:
+    inputs:
+      force_android:
+        description: Manually trigger Android checks
+        required: false
+        default: 'false'
+      force_ios:
+        description: Manually trigger iOS checks
+        required: false
+        default: 'false'
+
   pull_request:
     types:
       - opened
@@ -84,8 +94,8 @@ jobs:
 
   android-checks:
     name: Android Checks
-    # needs: detect-file-changes
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.detect-file-changes.outputs.run_android == 'true' }}
+    needs: detect-file-changes
+    if: ${{ github.event.inputs.force_android == 'true' || needs.detect-file-changes.outputs.run_android == 'true' }}
     uses: ./.github/workflows/android-checks.yml
     # Set the required gradle.properties via environment variables
     # https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties
@@ -94,8 +104,8 @@ jobs:
 
   ios-checks:
     name: iOS Checks
-    # needs: detect-file-changes
-    if: ${{ github.event_name == 'workflow_dispatch' || needs.detect-file-changes.outputs.run_ios == 'true' }}
+    needs: detect-file-changes
+    if: ${{ github.event.inputs.force_ios == 'true' || needs.detect-file-changes.outputs.run_ios == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
