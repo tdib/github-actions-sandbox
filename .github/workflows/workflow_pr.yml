@@ -85,7 +85,7 @@ jobs:
   android-checks:
     name: Android Checks
     needs: detect-file-changes
-    if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.detect-file-changes.outputs.run_android == 'true' }}
     uses: ./.github/workflows/android-checks.yml
     # Set the required gradle.properties via environment variables
     # https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties
@@ -95,7 +95,7 @@ jobs:
   ios-checks:
     name: iOS Checks
     needs: detect-file-changes
-    if: ${{ needs.detect-file-changes.outputs.run_ios == 'true' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.detect-file-changes.outputs.run_ios == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
