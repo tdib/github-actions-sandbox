@@ -65,6 +65,7 @@ jobs:
             echo "run_ios=true" >> $GITHUB_OUTPUT
           fi
 
+  # TODO: See if there's a way to have these variables accessible from other jobs
   fetch-secrets:
     name: Fetch Secrets
     runs-on: ubuntu-latest
@@ -89,8 +90,8 @@ jobs:
       - name: Run Android Checks
         uses: ./.github/actions/android-checks
         env:
-          SOMETHING: ${{ env.SOMETHING }}
-          SOMETHING_ELSE: ${{ env.SOMETHING_ELSE }}
+          SOMETHING: "something"
+          SOMETHING_ELSE: "something else"
 
   ios-checks:
     name: iOS Checks
