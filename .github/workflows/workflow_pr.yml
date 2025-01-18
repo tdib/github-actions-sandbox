@@ -67,7 +67,7 @@ jobs:
   android-checks:
     name: Android Checks
     needs: detect-file-changes
-    if: ${{ !github.event.pull_request.draft && needs.detect-file-changes.outputs.run_android == 'true' }}
+    if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -79,7 +79,7 @@ jobs:
   ios-checks:
     name: iOS Checks
     needs: detect-file-changes
-    if: ${{ !github.event.pull_request.draft && needs.detect-file-changes.outputs.run_ios == 'true' }}
+    if: ${{ needs.detect-file-changes.outputs.run_ios == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
