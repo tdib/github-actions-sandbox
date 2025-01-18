@@ -12,6 +12,7 @@ on:
 
 jobs:
   check-commit-messages:
+    name: Check Commit Messages
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
