@@ -18,8 +18,8 @@ runs:
       working-directory: Android/
       shell: bash
       run: |
-        echo "" >> ./gradle.properties
-        echo "required_value=$SOMETHING" >> ./gradle.properties
+        echo "" >> ~/.gradle/gradle.properties
+        echo "required_value=$SOMETHING" >> ~/.gradle/gradle.properties
 
     - name: Run unit tests
       shell: bash
