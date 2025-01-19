@@ -1,0 +1,35 @@
+name: Android Checks (Workflow)
+
+on:
+  workflow_call:
+    inputs:
+      required_value:
+        type: string
+        description: Some required value for the Gradle project
+        required: true
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Android/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/initialise-android
+
+      - run: ./gradlew assembleUnitTest
+
+  assemble-debug:
+    name: Assemble Debug Variant
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Android/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/initialise-android
+
+      - run: ./gradlew assembleDebug

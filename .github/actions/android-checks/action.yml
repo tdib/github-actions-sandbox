@@ -1,4 +1,4 @@
-name: Android Checks
+name: Android Checks (Composite Action)
 description: Run any Android specific checks for linting, testing, etc.
 
 runs:

@@ -15,33 +15,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-commit-messages:
-    name: Check Commit Messages
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Validate Commit Messages
-        uses: ./.github/actions/commit-message-validator
-        with:
-          # Match examples: "ABCD-1234 Commit msg", "[Release] Commit msg", "[QA] Commit msg"
-          # pattern: '^(([A-Z]+\-\d+)|\[CI\]|\[Release\]|\[QA\]|\[Merge\]|\[Automation\]) .+$'
-          pattern: "^.*$" # Temporarily allow anything
-          error-message: "All commit messages must start with a Jira ticket or a valid prefix."
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-  label-pr:
-    name: Label PR
-    runs-on: ubuntu-latest
-    steps:
-      - name: Label PR
-        uses: actions/labeler@v5
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-  
   detect-file-changes:
     runs-on: ubuntu-latest
     name: Detect file changes
@@ -68,21 +41,8 @@ jobs:
             echo "run_ios=true" >> $GITHUB_OUTPUT
           fi
 
-  # TODO: See if there's a way to have these variables accessible from other jobs
-  fetch-secrets:
-    name: Fetch Secrets
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set environment secret
-        run: |
-          echo 'SOMETHING="required_value"' >> $GITHUB_ENV
-
-      - name: Read environment secret
-        run: |
-          echo "$SOMETHING"
-
-  android-checks:
-    name: Android Checks
+  android-checks-composite:
+    name: Android Checks (Composite action)
     needs: detect-file-changes
     if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
     runs-on: ubuntu-latest
@@ -97,14 +57,36 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_required_value: "something"
 
-  ios-checks:
-    name: iOS Checks
+  android-checks-inline:
+    name: Android Checks (Inline)
     needs: detect-file-changes
-    if: ${{ needs.detect-file-changes.outputs.run_ios == 'true' }}
+    if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Android/
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/initialise-android
 
-      - name: Run iOS Checks
-        uses: ./.github/actions/ios-checks
+      - name: Run unit tests
+        run: ./gradlew assembleUnitTest
+
+      - name: Build debug variant
+        run: ./gradlew assembleDebug
+
+  android-checks-workflow:
+    name: Android Checks (Workflow)
+    needs: detect-file-changes
+    if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
+    uses: ./.github/workflows/workflow_android.yml
+    with:
+      required_value: "something"
+
+  android-checks-workflow-verbose:
+    name: Android Checks (Verbose Workflow)
+    needs: detect-file-changes
+    if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
+    uses: ./.github/workflows/workflow_android_verbose.yml
+    with:
+      required_value: "something"
