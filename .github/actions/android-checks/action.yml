@@ -17,9 +17,9 @@ runs:
     - name: Run unit tests
       shell: bash
       working-directory: ./Android
-      run: ./gradlew assembleUnitTest -Prequired_value=$required_value
+      run: ./gradlew assembleUnitTest
 
     - name: Build debug variant
       shell: bash
       working-directory: ./Android
-      run: ./gradlew assembleDebug -Prequired_value=$required_value
+      run: ./gradlew assembleDebug
