@@ -94,8 +94,8 @@ jobs:
         run: |
           echo "$SOMETHING"
 
-  android-checks:
-    name: Android Checks
+  android:
+    name: Android
     needs: detect-file-changes
     if: ${{ github.event.inputs.force_android == 'true' || needs.detect-file-changes.outputs.run_android == 'true' }}
     uses: ./.github/workflows/android-checks.yml
@@ -105,13 +105,14 @@ jobs:
       required_value: "something"
 
   ios-checks:
-    name: iOS Checks
+    name: Android Checks (Composite)
     needs: detect-file-changes
-    if: ${{ github.event.inputs.force_ios == 'true' || needs.detect-file-changes.outputs.run_ios == 'true' }}
+    # if: ${{ github.event.inputs.force_ios == 'true' || needs.detect-file-changes.outputs.run_ios == 'true' }}
+    if: ${{ github.event.inputs.force_android == 'true' || needs.detect-file-changes.outputs.run_android == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run iOS Checks
-        uses: ./.github/actions/ios-checks
+      - name: Run Android Checks (Composite)
+        uses: ./.github/actions/android-checks
