@@ -81,11 +81,17 @@ jobs:
       - name: Read environment secret
         run: |
           echo "$SOMETHING"
+  
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "$GITHUB_RUN_ATTEMPT"
 
   android-checks:
     name: Android Checks
     needs: detect-file-changes
-    if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || needs.detect-file-changes.outputs.run_android == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
