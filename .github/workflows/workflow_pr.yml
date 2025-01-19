@@ -88,3 +88,11 @@ jobs:
     uses: ./.github/workflows/workflow_android.yml
     with:
       required_value: "something"
+
+  android-checks-workflow-verbose:
+    name: Android Checks (Verbose Workflow)
+    needs: detect-file-changes
+    if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
+    uses: ./.github/workflows/workflow_android_verbose.yml
+    with:
+      required_value: "something"
