@@ -27,6 +27,7 @@ jobs:
       - name: Set Gradle Project Variables
         run: |
           echo "ORG_GRADLE_PROJECT_required_value=${{ inputs.required_value }}" >> $GITHUB_ENV
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 

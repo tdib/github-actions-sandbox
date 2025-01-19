@@ -127,12 +127,6 @@ jobs:
     name: Android Checks (Workflow)
     needs: detect-file-changes
     if: ${{ needs.detect-file-changes.outputs.run_android == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Android Checks
-        uses: ./.github/workflows/workflow_android.yml
-        with:
-          required_value: "something"
+    uses: ./.github/workflows/workflow_android.yml
+    with:
+      required_value: "something"
