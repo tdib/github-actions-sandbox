@@ -11,6 +11,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-commit-messages:
     name: Check Commit Messages
