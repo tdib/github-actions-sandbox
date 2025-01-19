@@ -18,19 +18,8 @@ jobs:
         working-directory: Android/
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/initialise-android
 
-      - uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
+      - run: ./gradlew assembleUnitTest
 
-      - name: Set Gradle Project Variables
-        run: |
-          echo "ORG_GRADLE_PROJECT_required_value=${{ inputs.required_value }}" >> $GITHUB_ENV
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-
-      - run: echo "Test"
-
-      - run: echo "Another one"
+      - run: ./gradlew assembleDebug

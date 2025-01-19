@@ -10,33 +10,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  initial-setup:
-    name: Initial Setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/initialise-android
-
-      - run: echo "Doing something"
-
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Android/
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/initialise-android
 
-      - run: echo "Here"
-
-      - run: echo "required value is $ORG_GRADLE_PROJECT_required_value"
+      - run: ./gradlew assembleUnitTest
 
   assemble-debug:
     name: Assemble Debug Variant
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Android/
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/initialise-android
 
-      - run: echo "Assembling debug variant"
-
-      - run: echo "Something else"
+      - run: ./gradlew assembleDebug
