@@ -7,11 +7,13 @@ on:
       force_android:
         description: Manually trigger Android checks
         required: false
-        default: 'false'
+        type: boolean
+        default: false
       force_ios:
         description: Manually trigger iOS checks
         required: false
-        default: 'false'
+        type: boolean
+        default: false
 
   pull_request:
     types:
