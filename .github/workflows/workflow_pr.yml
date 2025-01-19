@@ -89,6 +89,8 @@ jobs:
 
       - name: Run Android Checks
         uses: ./.github/actions/android-checks
+        # Set the required gradle.properties via environment variables
+        # https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties
         env:
           ORG_GRADLE_PROJECT_required_value: "something"
 
