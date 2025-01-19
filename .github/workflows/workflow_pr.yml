@@ -65,6 +65,19 @@ jobs:
             echo "run_ios=true" >> $GITHUB_OUTPUT
           fi
 
+  # TODO: See if there's a way to have these variables accessible from other jobs
+  fetch-secrets:
+    name: Fetch Secrets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set environment secret
+        run: |
+          echo 'SOMETHING="required_value"' >> $GITHUB_ENV
+
+      - name: Read environment secret
+        run: |
+          echo "$SOMETHING"
+
   android-checks:
     name: Android Checks
     needs: detect-file-changes
@@ -76,6 +89,10 @@ jobs:
 
       - name: Run Android Checks
         uses: ./.github/actions/android-checks
+        # Set the required gradle.properties via environment variables
+        # https://docs.gradle.org/current/userguide/build_environment.html#sec:project_properties
+        env:
+          ORG_GRADLE_PROJECT_required_value: "something"
 
   ios-checks:
     name: iOS Checks
