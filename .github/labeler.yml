@@ -4,11 +4,15 @@ Documentation:
 
 iOS:
 - changed-files:
-  - any-glob-to-any-file: "**/iOS/**"
+  - any-glob-to-any-file:
+    - "**/iOS/**"
+    - "*-thing.txt"
 
 Android:
 - changed-files:
-  - any-glob-to-any-file: "**/Android/**"
+  - any-glob-to-any-file:
+    - "**/Android/**"
+    - "root-file.txt"
 
 Mock response:
 - changed-files:
